@@ -1,0 +1,103 @@
+<h1>DANH SÁCH CÔNG VIỆC</h1>
+<hr/>
+
+
+<form action="Index.php" method="get">
+    <input type="hidden" name="action" value="search"/>
+    <input type="text" name="keyword" />
+    <input type="submit"/>
+</form>
+
+<?php 
+    if (isset($_GET['pageno'])) {
+        $pageno = $_GET['pageno'];
+    } else {
+        $pageno = 1;
+    }
+?>
+
+<br>
+<form action="Index.php" method="post">
+    <input type="hidden" name="action" value="deleMul"/>
+    <input type="hidden" name="ids">
+    <table id="tableCV"></table><br/>
+    <div class="pagination">
+        <div>        <a href="?action=page&number=<?php echo $pageno ?>">1</a></div>
+    </div>
+    <input type="submit" value="Delete Selected Row" id="handleClick"/>
+</form>
+
+<br/><br/>
+ <a href="index.php?action=add">Cập nhật công việc</a>
+
+ <script type="text/javascript">
+
+     var tagTable = document.getElementById("tableCV");
+     tagTable.setAttribute('border','1');
+     var tagTBody = document.createElement("tbody");
+
+     var tagTR
+     var tagTDCheckbox
+     var tagCheckbox
+    var i=0;
+     <?php foreach ($data as $item) {?>   
+
+         tagTR = document.createElement("tr");
+         tagTDCheckbox = document.createElement("td");
+         tagCheckbox = document.createElement("INPUT");
+         tagCheckbox.setAttribute("type","checkbox");
+         tagCheckbox.id=(`checkbox${i++}`)
+         tagCheckbox.value = (<?php echo $item->task_id ?>);
+         tagTDCheckbox.appendChild(tagCheckbox);
+         tagTR.appendChild(tagTDCheckbox);
+
+         var tagTDID = document.createElement("td");
+         tagTDID.innerHTML = (`<?php echo $item->task_id ?>`);
+         tagTR.appendChild(tagTDID);
+
+         var tagTDName = document.createElement("td");
+         tagTDName.innerHTML = (`<?php echo $item->name ?>`);
+         tagTR.appendChild(tagTDName);
+         
+         var tagTDDes = document.createElement("td");
+         tagTDDes.innerHTML = (`<?php echo $item->description ?>`);
+         tagTR.appendChild(tagTDDes);
+
+         var tagTDSD = document.createElement("td");
+         tagTDSD.innerHTML = (`<?php echo $item->start_date ?>`);
+         tagTR.appendChild(tagTDSD);
+
+         var tagTDDD = document.createElement("td");
+         tagTDDD.innerHTML = (`<?php echo $item->due_date ?>`);
+         tagTR.appendChild(tagTDDD);
+
+         var tagTDCatename = document.createElement("td");
+         tagTDCatename.innerHTML = (`<?php echo $item->category_name ?>`);
+         tagTR.appendChild(tagTDCatename);
+
+         var tagTDDelete= document.createElement("td");
+         tagTDDelete.innerHTML = (`<?php print" <a href='?action=delete&task_id={$item->task_id}'>Xoá</a>"?>`);
+         tagTR.appendChild(tagTDDelete);
+
+         tagTBody.appendChild(tagTR);
+     tagTable.appendChild(tagTBody);
+    
+    <?php } ?>
+
+</script>
+
+<script type="text/javascript">
+        document.getElementById('handleClick').addEventListener("click", function(e){
+            // e.preventDefault();
+            var ids ="";
+            for (i=0;i< <?php echo count($data)?>; i++)
+            {
+                var checkbox=document.getElementById(`checkbox${i}`);
+                if(checkbox.checked)
+                ids = ids + checkbox.value+","
+            };
+            ids = ids.slice(0, -1);
+            document.getElementsByName("ids")[0].value = ids;
+        })
+</script>
+

@@ -1,0 +1,16 @@
+<h1>THÔNG TIN CÔNG VIỆC</h1>
+<hr/>
+
+<?php
+	if (isset($data)) ?>
+
+Mã công việc: <?=$data->task_id?> <br/>
+Tên công việc: <?=$data->name?> <br/>
+Mô tả: <?=$data->description?> <br/>
+Ngày bắt đầu: <?=$data->start_date?> <br/>
+Ngày kết thúc:<?=$data->due_date?> <br/>
+Mã loại công việc: <?=$data->category_id?> <br/>
+Loại công việc: <?=$data->category_name?> <br/>
+
+<?php	
+?>

@@ -1,0 +1,44 @@
+<h1>Thêm công việc </h1>
+
+<form method ="post" action="Index.php" onsubmit="return checkForm();">
+
+    <table>
+        <tr>
+            <td>Mã công việc</td>
+            <td><input name="task_id" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Tên công việc</td>
+            <td><input name="name" type="text" /></td>                   
+        </tr>
+        <tr>
+            <td>Mô tả</td>
+            <td><input name="description" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Ngày bắt đầu</td>
+            <td><input name="start_date" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Ngày kết thúc</td>
+            <td><input name="due_date" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Loại công việc</td>
+            <td><input name="category_id" type="text" /></td>
+        </tr>                
+    </table>
+    <br><br>
+
+    <input type="submit" name="action" value="add" />
+    <input type="submit" name="action" value="update" />
+    <br><br>
+
+    <?php 
+    	if (isset($data) && $data != "")
+    	{
+    		echo $data;
+        }
+
+    ?>   
+</form>
